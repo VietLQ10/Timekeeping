@@ -16,7 +16,7 @@ import java.util.Set;
 public class Gender {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int genderId;
 
     /*
@@ -24,7 +24,7 @@ public class Gender {
     * false: female
     *
     * */
-    @Column(name = "gender", columnDefinition = "VARCHAR(6)", nullable = false)
+    @Column(name = "gender", columnDefinition = "VARCHAR(6)", nullable = false, unique = true)
     private String gender;
 
     @OneToMany(mappedBy = "gender")

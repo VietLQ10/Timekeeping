@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = new ArrayList<>();
         Optional<Employee> optional;
 
-        switch (type) {
+        switch (type.toUpperCase()) {
             case "ID":
                 optional = repository.findById((String) data);
                 if (optional.isPresent()) {

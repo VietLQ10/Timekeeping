@@ -22,15 +22,15 @@ public class Employee {
     private String employeeId;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @ManyToOne
-    @JoinColumn(name = "gender_id", nullable = false)
+    @JoinColumn(name = "gender_id")
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "position_id", nullable = false)
+    @JoinColumn(name = "position_id")
     private Position position;
 
     @Column(name = "name", columnDefinition = "NVARCHAR(100)", nullable = false)

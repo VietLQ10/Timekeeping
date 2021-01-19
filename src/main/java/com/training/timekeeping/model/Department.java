@@ -19,7 +19,7 @@ public class Department {
     @Column(name = "department_id", columnDefinition = "VARCHAR(5)")
     private String departmentId;
 
-    @Column(name = "department_name", columnDefinition = "NVARCHAR(250)", unique = true, nullable = false)
+    @Column(name = "department_name", columnDefinition = "NVARCHAR(250)", nullable = false, unique = true)
     private String departmentName;
 
     @OneToMany(mappedBy = "department")
