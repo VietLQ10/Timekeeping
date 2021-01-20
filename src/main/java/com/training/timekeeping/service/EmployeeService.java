@@ -13,14 +13,14 @@ public interface EmployeeService {
     // get list employees
     List<Employee> getEmployees(String type, Object data);
 
-    //get a employee
-//    Optional<Employee> getEmployee()
-
     // delete all employees
+    void deleteAllEmployees();
 
     // delete list employees
+    void deleteEmployees(Iterable<Employee> employees);
 
     // delete a employee
+    void deleteEmployee(Employee employee);
 
     // edit a employee
 

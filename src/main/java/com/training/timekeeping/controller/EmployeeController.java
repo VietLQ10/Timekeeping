@@ -6,6 +6,7 @@ import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class EmployeeController {
     private EmployeeService service;
 
     // get all employees
-    @GetMapping("/getAllEmployees")
+    @GetMapping("/get-all")
     public ResponseEntity<?> getAllEmployee() {
         List<Employee> employees = new ArrayList<>();
         service.getAllEmployee().forEach(employee -> {
@@ -35,30 +36,28 @@ public class EmployeeController {
     }
 
     // get list employees
-    @GetMapping(value = "/get_employees", produces = "application/json")
-    public ResponseEntity<?> getEmployees(@RequestParam String data, HttpServletRequest httpRequest) {
-        //List<Employee> employees = service.getEmployees(Constant.EMPLOYEE_NAME, data);
-
-        String requestURI = httpRequest.getQueryString();
-        return ResponseEntity.ok(requestURI);
+    @GetMapping("get-list")
+    public ResponseEntity<?> getEmployees(@RequestParam(name = "key") String key,
+                                             @RequestParam(name = "data") Object data) {
+        List<Employee> employees = service.getEmployees(key, data);
+        return ResponseEntity.ok(employees);
     }
-
-    @GetMapping("getEmployees")
-    public ResponseEntity<?> getEmployees(@RequestParam(name = "id") String data) {
-        //List<Employee> employees = service.getEmployees(Constant.EMPLOYEE_NAME, data);
-
-
-        return ResponseEntity.ok(data);
-    }
-
-
-
-
-    //get a employee
 
     // delete all employees
+    @DeleteMapping("delete-all")
+    public ResponseEntity<?> deleteAllEmployees(){
+        service.deleteAllEmployees();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     // delete list employees
+    @DeleteMapping("delete-list")
+    public ResponseEntity<?> deleteEmployees(@RequestParam(name = "key") String key,
+                                             @RequestParam(name = "data") Object data) {
+        List<Employee> employees = service.getEmployees(key, data);
+        service.deleteEmployees(employees);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     // delete a employee
 

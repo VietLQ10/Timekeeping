@@ -1,0 +1,38 @@
+create database jwt;
+use db_timekeeping;
+
+delete table roll;
+
+select * from department;
+
+DELETE FROM department WHERE department_id = "BU1";
+
+insert into department values ("BU1", "Trung tam san xuat 1");
+
+insert into department values ("BU2", "Trung tam san xuat 2");
+
+insert into department values ("BU3", "Trung tam san xuat 3");
+
+insert into department values ("BU4", "Trung tam san xuat 4");
+
+insert into department values ("BU5", "Trung tam san xuat 5");
+
+insert into gender values (1, "Male");
+
+insert into gender values (2, "Female");
+
+insert into position values ("1", "Dev");
+
+insert into employee values ("1", "abc", "name1", 2, 1, "1234", "admin", "15:03:03", "15:03:03", "15:03:03", null, null, null);
+
+insert into employee values ("2", "bcd", "name1", 2, 1, "1234", "user", "15:03:03", "15:03:03", "15:03:03", null, null, null);
+
+insert into employee values ("3", "cde", "name2", 2, 1, "1234", "user", "15:03:03", "15:03:03", "15:03:03", null, null, null);
+
+insert into employee values ("4", "def", "name2", 2, 1, "1234", "user", "15:03:03", "15:03:03", "15:03:03", null, null, null);
+
+insert into employee values ("5", "efg", "name1", 2, 1, "1234", "user", "15:03:03", "15:03:03", "15:03:03", null, null, null);
+
+select * from employee;
+
+DELETE FROM employee WHERE department_id = "BU1";

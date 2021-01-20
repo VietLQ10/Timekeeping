@@ -1,5 +1,6 @@
 package com.training.timekeeping.service.impl;
 
+import com.training.timekeeping.Utils.Constant;
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.repository.EmployeeRepository;
 import com.training.timekeeping.service.EmployeeService;
@@ -28,25 +29,40 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> optional;
 
         switch (type.toUpperCase()) {
-            case "ID":
+            case Constant.EMPLOYEE_ID:
                 optional = repository.findById((String) data);
                 if (optional.isPresent()) {
                     employees.add(optional.get());
                 }
                 break;
 
-            case "EMAIL":
+            case Constant.EMPLOYEE_EMAIL:
                 optional = repository.findByEmail((String) data);
                 if (optional.isPresent())  {
                     employees.add(optional.get());
                 }
                 break;
 
-            case "NAME":
+            case Constant.EMPLOYEE_NAME:
                 employees = repository.findByName((String) data);
                 break;
 
         }
         return employees;
+    }
+
+    @Override
+    public void deleteAllEmployees() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void deleteEmployees(Iterable<Employee> employees) {
+        repository.deleteAll(employees);
+    }
+
+    @Override
+    public void deleteEmployee(Employee employee) {
+        repository.delete(employee);
     }
 }

@@ -60,6 +60,9 @@ public class Employee {
     @Temporal(TemporalType.TIME)
     private Date timeBreak;
 
+    @Column(name = "role")
+    private String role;
+
     @OneToMany(mappedBy = "id.employee")
     @ToString.Exclude private  List<Overtime> overtimes;
 
