@@ -16,12 +16,12 @@ public class LoginController {
     @Autowired
     private LoginService service;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login (@RequestBody Account account) {
-        Account accountData = service.findAccount(account);
-        if (accountData != null) {
-            return ResponseEntity.ok(accountData);
-        }
-        return (ResponseEntity<?>) ResponseEntity.notFound();
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login (@RequestBody Account account) {
+//        Account accountData = service.findAccount(account);
+//        if (accountData != null) {
+//            return ResponseEntity.ok(accountData);
+//        }
+//        return (ResponseEntity<?>) ResponseEntity.notFound();
+//    }
 }

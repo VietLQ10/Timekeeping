@@ -1,6 +1,6 @@
 package com.training.timekeeping.service.impl;
 
-import com.training.timekeeping.Utils.Constant;
+import com.training.timekeeping.utils.Constant;
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.repository.EmployeeRepository;
 import com.training.timekeeping.service.EmployeeService;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service

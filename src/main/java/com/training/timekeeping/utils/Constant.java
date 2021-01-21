@@ -1,4 +1,4 @@
-package com.training.timekeeping.Utils;
+package com.training.timekeeping.utils;
 
 public class Constant {
     public static final String EMPLOYEE_ID = "ID";

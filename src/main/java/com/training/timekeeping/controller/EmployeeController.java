@@ -1,19 +1,12 @@
 package com.training.timekeeping.controller;
 
-import com.sun.net.httpserver.HttpServer;
-import com.training.timekeeping.Utils.Constant;
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
