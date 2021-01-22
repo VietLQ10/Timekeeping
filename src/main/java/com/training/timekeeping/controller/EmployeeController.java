@@ -2,6 +2,7 @@ package com.training.timekeeping.controller;
 
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.service.EmployeeService;
+import com.training.timekeeping.utils.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class EmployeeController {
     private EmployeeService service;
 
     // get all employees
-    @GetMapping("/get-all")
-    public ResponseEntity<?> getAllEmployee() {
+    @GetMapping("/find-all")
+    public ResponseEntity<?> findAllEmployee() {
         List<Employee> employees = new ArrayList<>();
         service.getAllEmployee().forEach(employee -> {
             employees.add(employee);
@@ -29,17 +30,24 @@ public class EmployeeController {
     }
 
     // get list employees
-    @GetMapping("get-list")
-    public ResponseEntity<?> getEmployees(@RequestParam(name = "key") String key,
+    @GetMapping("find-list")
+    public ResponseEntity<?> findEmployees(@RequestParam(name = "key") String key,
                                              @RequestParam(name = "data") Object data) {
         List<Employee> employees = service.getEmployees(key, data);
         return ResponseEntity.ok(employees);
     }
 
+//    @GetMapping("find")
+//    public ResponseEntity<?> findEmployee(@RequestParam(name = "key") String key,
+//                                          @RequestParam(name = "data") Object data) {
+//        List<Employee> employees = service.getEmployees(key, data);
+//        return ResponseEntity.ok(employees);
+//    }
+
     // delete all employees
     @DeleteMapping("delete-all")
     public ResponseEntity<?> deleteAllEmployees(){
-        service.deleteAllEmployees();
+        service.deleteAllEmployees(Role.ADMIN);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -48,7 +56,7 @@ public class EmployeeController {
     public ResponseEntity<?> deleteEmployees(@RequestParam(name = "key") String key,
                                              @RequestParam(name = "data") Object data) {
         List<Employee> employees = service.getEmployees(key, data);
-        service.deleteEmployees(employees);
+        service.deleteEmployees(employees, Role.ADMIN);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

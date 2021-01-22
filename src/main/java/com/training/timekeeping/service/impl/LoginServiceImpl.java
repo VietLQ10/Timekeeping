@@ -1,6 +1,6 @@
 package com.training.timekeeping.service.impl;
 
-import com.training.timekeeping.model.Account;
+import com.training.timekeeping.model.dto.Account;
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.repository.LoginRepository;
 import com.training.timekeeping.service.LoginService;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+//
 @Service
 public class LoginServiceImpl implements LoginService {
 

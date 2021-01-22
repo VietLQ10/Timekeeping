@@ -1,4 +1,4 @@
-package com.training.timekeeping.model;
+package com.training.timekeeping.model.dto;
 
 public class Account {
 

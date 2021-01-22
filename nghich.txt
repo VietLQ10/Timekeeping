@@ -1,7 +1,8 @@
-create database jwt;
-use db_timekeeping;
+create database springjwt;
+use bootdb;
+select * from user;
+insert into user values (1, "1234", "root");
 
-delete table roll;
 
 select * from department;
 
@@ -35,4 +36,71 @@ insert into employee values ("5", "efg", "name1", 2, 1, "1234", "user", "15:03:0
 
 select * from employee;
 
-DELETE FROM employee WHERE department_id = "BU1";
+select * from timekeeper;
+ insert into timekeeper 
+ values
+ ("2021-01-22 08:30:00", 1, 0, "1"),
+ ("2021-01-22 11:30:00", 0, 1, "1"),
+ ("2021-01-22 13:30:00", 1, 0, "1"),
+ ("2021-01-22 17:30:00", 0, 1, "1"),
+ ("2021-01-22 08:30:00", 1, 0, "2"),
+ ("2021-01-22 09:30:00", 0, 1, "2"),
+ ("2021-01-22 10:30:00", 1, 0, "2"),
+ ("2021-01-22 11:30:00", 0, 1, "2"),
+ ("2021-01-22 13:30:00", 1, 0, "2"),
+ ("2021-01-22 17:30:00", 0, 1, "2"),
+("2021-01-21 08:30:00", 1, 0, "1"),
+ ("2021-01-21 11:30:00", 0, 1, "1"),
+ ("2021-01-21 13:30:00", 1, 0, "1"),
+ ("2021-01-21 17:30:00", 0, 1, "1");
+ 
+ select * from timekeeper where employee_id = "1" AND date(time_check) = "2021-01-22";
+ 
+ SELECT TIMEDIFF("2021-01-22 17:30:00", "2021-01-22 08:31:00");
+ 
+--  employeeId = 1
+
+-- time check-in
+ select 
+	time_check
+ from 
+	timekeeper 
+ WHERE 
+	employee_id = "1" 
+	AND date(time_check) = "2021-01-22"
+LIMIT
+	1;
+-- time check-out
+ select 
+	* 
+ from 
+	timekeeper 
+ WHERE 
+	employee_id = "1" 
+	AND date(time_check) = "2021-01-22"
+order by
+	time_check DESC
+LIMIT
+	1;
+    
+-- hours of work
+
+-- hours of late
+ SELECT TIMEDIFF("2021-01-22 08:00:00", 
+	(select 
+	time_check
+ from 
+	timekeeper 
+ WHERE 
+	employee_id = "1" 
+	AND date(time_check) = "2021-01-22"
+LIMIT
+	1)
+);
+ 
+ 
+ 
+ 
+
+
+https://www.javainuse.com/spring/boot-jwt-mysql
