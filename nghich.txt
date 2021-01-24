@@ -104,3 +104,42 @@ LIMIT
 
 
 https://www.javainuse.com/spring/boot-jwt-mysql
+
+insert employee
+{
+    "employeeId": "2",
+    "department": null,
+    "gender": null,
+    "position": null,
+    "name": "Nguyen Thi Thanh Thuy",
+    "email": "thuyntt@ominext.com",
+    "password": "thuyntt@ominext.com",
+    "numDayoff": 3,
+    "numRemaining": 2,
+    "timeStartWork": "08:30:00",
+    "timeEndWork": "17:30:00",
+    "timeBreak": "01:00:00",
+    "role": "USER",
+    "overtimes": null,
+    "request": null,
+    "timekeepers": null
+}
+
+{
+    "employeeId": "3",
+    "department": null,
+    "gender": null,
+    "position": null,
+    "name": "Pham Van Thanh",
+    "email": "thanhpv@ominext.com",
+    "password": "thanhpv@ominext.com",
+    "numDayoff": 3,
+    "numRemaining": 2,
+    "timeStartWork": "08:30:00",
+    "timeEndWork": "17:30:00",
+    "timeBreak": "01:00:00",
+    "role": "USER",
+    "overtimes": null,
+    "request": null,
+    "timekeepers": null
+}

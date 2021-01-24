@@ -19,11 +19,8 @@ public interface EmployeeService extends UserDetailsService {
     // get employee
     Employee findEmployee(String type, Object data);
 
-    // delete all employees
-    void deleteAllEmployees(Role role);
-
     // delete list employees
-    void deleteEmployees(Iterable<Employee> employees, Role role);
+    boolean deleteEmployees(Iterable<Employee> employees, String email);
 
     // delete a employee
     void deleteEmployee(Employee employee, Role role);
@@ -32,7 +29,7 @@ public interface EmployeeService extends UserDetailsService {
     void updateEmployee(Employee employee, Role role);
 
     // add a employee
-    void addEmployee(Employee employee, Role role);
+    Employee addEmployee(Employee employee);
 
-    Employee save(Account account);
+    void createAdmin();
 }

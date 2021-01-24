@@ -1,6 +1,8 @@
 package com.training.timekeeping.model.dto;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 
     private String email;
 

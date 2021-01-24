@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,17 +75,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 //    }
 
     @Override
-    public void deleteAllEmployees(Role role) {
-        if (role == Role.ADMIN) {
-            repository.deleteAll();
-        }
-    }
-
-    @Override
-    public void deleteEmployees(Iterable<Employee> employees, Role role) {
-        if (role == Role.ADMIN) {
+    public boolean deleteEmployees(Iterable<Employee> employees, String email) {
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(findEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
             repository.deleteAll(employees);
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -108,18 +104,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(Employee employee, Role role) {
-        if(role == Role.ADMIN) {
-
-        }
+    public Employee addEmployee(Employee employee) {
+        employee.setPassword(bcryptEncoder.encode(employee.getPassword()));
+        return repository.save(employee);
     }
 
     @Override
-    public Employee save(Account account) {
-        Employee employee = new Employee();
-        employee.setEmail(account.getEmail());
-        employee.setPassword(bcryptEncoder.encode(account.getPassword()));
-        return repository.save(employee);
+    public void createAdmin() {
+        Employee emp = new Employee();
+        emp.setEmployeeId("1");
+        emp.setDepartment(null);
+        emp.setPosition(null);
+        emp.setGender(null);
+        emp.setName("La Quoc Viet");
+        emp.setEmail("vietlq@ominext.com");
+        emp.setPassword(bcryptEncoder.encode("vietlq@ominext.com"));
+        emp.setNumDayoff(3);
+        emp.setNumRemaining(2);
+        emp.setTimeStartWork(LocalTime.MAX);
+        emp.setTimeBreak(LocalTime.MAX);
+        emp.setTimeEndWork(LocalTime.MAX);
+        emp.setRole(Constant.ROLE_ADMIN);
+        repository.save(emp);
     }
 
     @Override
