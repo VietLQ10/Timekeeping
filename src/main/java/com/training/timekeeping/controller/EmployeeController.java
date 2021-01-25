@@ -27,28 +27,72 @@ public class EmployeeController {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    /**
+    * creat
+    *
+    * */
+    @PostMapping("/add-employee")
+    public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
+        boolean isCreate = service.createUser(employee, jwtRequestFilter.getEmail());
+        if (isCreate) {
+            return ResponseEntity.ok(employee);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
+     * retrieve
+     *
+     * */
     // get all employees
-    @GetMapping("/find-all")
+    @GetMapping("/get-all-employees")
     public ResponseEntity<?> findAllEmployee() {
-       String email = jwtRequestFilter.getEmail();
+        String email = jwtRequestFilter.getEmail();
 
         List<Employee> employees = new ArrayList<>();
         service.getAllEmployee().forEach(employee -> {
             employees.add(employee);
         });
-        return ResponseEntity.ok(email);
+        return ResponseEntity.ok(employees);
     }
 
     // get list employees
-    @GetMapping("find-list")
+    @GetMapping("get-employees")
     public ResponseEntity<?> findEmployees(@RequestParam(name = "key") String key,
-                                             @RequestParam(name = "data") Object data) {
+                                           @RequestParam(name = "data") Object data) {
         List<Employee> employees = service.getEmployees(key, data);
         return ResponseEntity.ok(employees);
     }
 
+    // get a employee
+    @GetMapping("get-employee")
+    public ResponseEntity<?> findEmployee(@RequestParam(name = "key") String key,
+                                          @RequestParam(name = "data") Object data) {
+        Employee employee = service.getEmployee(key, data);
+        return ResponseEntity.ok(employee);
+    }
+
+    /**
+     * update
+     *
+     * */
+    @PutMapping("/update-employee")
+    public ResponseEntity<?> updateEmployee(@RequestParam(name = "key") String key,
+                                            @RequestParam(name = "data") Object data) {
+        Employee employee = service.getEmployee(key, data);
+        boolean isUpdate = service.updateEmployee(jwtRequestFilter.getEmail(), employee);
+        if(isUpdate) {
+            return ResponseEntity.ok(employee);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * delete
+     *
+     * */
     // delete list employees
-    @DeleteMapping("delete-list")
+    @DeleteMapping("/delete-employees")
     public ResponseEntity<?> deleteEmployees(@RequestParam(name = "key") String key,
                                              @RequestParam(name = "data") Object data) {
         List<Employee> employees = service.getEmployees(key, data);
@@ -56,17 +100,18 @@ public class EmployeeController {
         if (isDelete) {
             return ResponseEntity.ok("Delete success!");
         }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }
 
     // delete a employee
-
-    // edit a employee
-
-    // add a employee
-    @PostMapping("/add-employee")
-    public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
-        Employee emp = service.addEmployee(employee);
-        return ResponseEntity.ok(emp);
+    @DeleteMapping("/delete-employee")
+    public ResponseEntity<?> deleteEmployee(@RequestParam(name = "key") String key,
+                                            @RequestParam(name = "data") String data) {
+        Employee employee = service.getEmployee(key, data);
+        boolean isDelete = service.deleteEmployee(employee, jwtRequestFilter.getEmail());
+        if (isDelete) {
+            return ResponseEntity.ok("Delete success!");
+        }
+        return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }
 }

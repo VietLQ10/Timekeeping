@@ -6,27 +6,29 @@ import com.training.timekeeping.service.TimekeeperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
+@Service
 public class TimekeeperServiceImpl implements TimekeeperService {
 
     @Autowired
     private TimekeeperRepository repository;
-    
-    @Override
-    public void save(Timekeeper timekeeper) {
-        repository.save(timekeeper);
-    }
 
     @Override
-    public Timer getHoursOfWork(String employeeId, Date date) {
-
+    public LocalDate getTimeCheckIn(String employeeId, LocalDate date) {
         return null;
     }
 
     @Override
-    public Timer getHoursOfLate(String employeeId) {
+    public LocalDate getTimeCheckOut(String employeeId) {
         return null;
+    }
+
+    @Override
+    public List<Timekeeper> getTimekeeper() {
+        return repository.getTimekeeper();
     }
 }

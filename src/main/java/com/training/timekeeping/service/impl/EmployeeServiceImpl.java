@@ -27,88 +27,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
-    @Override
-    public Iterable<Employee> getAllEmployee() {
-        return repository.findAll();
-    }
-
-    @Override
-    public List<Employee> getEmployees(String type, Object data) {
-        List<Employee> employees = new ArrayList<>();
-        switch (type.toUpperCase()) {
-            case Constant.EMPLOYEE_NAME:
-                employees = repository.findByName((String) data);
-                break;
-
-        }
-        return employees;
-    }
-
-    @Override
-    public Employee findEmployee(String type, Object data) {
-        Optional<Employee> optional = null;
-        switch (type.toUpperCase()) {
-            case Constant.EMPLOYEE_ID:
-                optional = repository.findById((String) data);
-                break;
-
-            case Constant.EMPLOYEE_EMAIL:
-                optional = repository.findByEmail((String) data);
-                break;
-        }
-
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        return null;
-    }
-
-//    @Override
-//    public Employee findByEmail(String email) {
-//        Optional<Employee> optional = repository.findByEmail(email);
-//
-//        if (optional.isPresent()) {
-//            return optional.get();
-//        }
-//
-//        return null;
-//    }
-
-    @Override
-    public boolean deleteEmployees(Iterable<Employee> employees, String email) {
-        if (Constant.ROLE_ADMIN.equalsIgnoreCase(findEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
-            repository.deleteAll(employees);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void deleteEmployee(Employee employee, Role role) {
-        if (role == Role.ADMIN) {
-            if (employee == null) {
-                return;
-            }
-            repository.delete(employee);
-        }
-
-    }
-
-    @Override
-    public void updateEmployee(Employee employee, Role role) {
-         if (role == Role.ADMIN) {
-
-         } else {
-
-         }
-    }
-
-    @Override
-    public Employee addEmployee(Employee employee) {
-        employee.setPassword(bcryptEncoder.encode(employee.getPassword()));
-        return repository.save(employee);
-    }
-
+    /**
+    * create
+    *
+    * */
+    // create admin
     @Override
     public void createAdmin() {
         Employee emp = new Employee();
@@ -128,6 +51,67 @@ public class EmployeeServiceImpl implements EmployeeService {
         repository.save(emp);
     }
 
+    // create user
+    @Override
+    public boolean createUser(Employee employee, String email) {
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
+            employee.setPassword(bcryptEncoder.encode(employee.getPassword()));
+            repository.save(employee);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+    * retrieve
+    *
+    * */
+
+    // get all employees
+    @Override
+    public List<Employee> getAllEmployee() {
+        List<Employee> employees = new ArrayList<>();
+        repository.findAll().forEach(employee -> {
+            employees.add(employee);
+        });
+        return employees;
+    }
+
+    // get list employees
+    @Override
+    public List<Employee> getEmployees(String type, Object data) {
+        List<Employee> employees = new ArrayList<>();
+        switch (type.toUpperCase()) {
+            case Constant.EMPLOYEE_NAME:
+                employees = repository.findByName((String) data);
+                break;
+
+        }
+        return employees;
+    }
+
+    // get a employee
+    @Override
+    public Employee getEmployee(String type, Object data) {
+        Optional<Employee> optional = null;
+        switch (type.toUpperCase()) {
+            case Constant.EMPLOYEE_ID:
+                optional = repository.findById((String) data);
+                break;
+
+            case Constant.EMPLOYEE_EMAIL:
+                optional = repository.findByEmail((String) data);
+                break;
+        }
+
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
+
+    // override interface UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Employee> optional = repository.findByEmail(email);
@@ -136,4 +120,74 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return new User(optional.get().getEmail(), optional.get().getPassword(), new ArrayList<>());
     }
+
+
+    /**
+    * update
+    *
+    * */
+    // update employee:
+    @Override
+    public boolean updateEmployee(String email, Employee emp) {
+        /*
+        *  if email is admin:
+        * if email is user:
+        *   if emp.getEmail == email ?
+        * */
+
+        Employee employee = getEmployee(Constant.EMPLOYEE_EMAIL, email);
+        String role = employee.getRole();
+
+        if (emp == null) {
+            return false;
+        }
+
+        if (getEmployee(Constant.EMPLOYEE_ID, emp.getEmployeeId()) == null){
+            return false;
+        }
+
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(role)) {
+            emp.setPassword(bcryptEncoder.encode(emp.getPassword()));
+            repository.save(emp);
+            return true;
+
+        } else {
+            if (! email.equalsIgnoreCase(emp.getEmail())) {
+                return false;
+            }
+
+            employee.setPassword(bcryptEncoder.encode(emp.getPassword()));
+            employee.setTimeStartWork(emp.getTimeStartWork());
+            employee.setTimeEndWork(emp.getTimeEndWork());
+            employee.setTimeBreak(emp.getTimeBreak());
+
+            return true;
+        }
+    }
+
+
+    /**
+    * delete
+    *
+    * */
+    // delete list employees
+    @Override
+    public boolean deleteEmployees(Iterable<Employee> employees, String email) {
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
+            repository.deleteAll(employees);
+            return true;
+        }
+        return false;
+    }
+
+    // delete a employee
+    @Override
+    public boolean deleteEmployee(Employee employee, String email) {
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
+            repository.delete(employee);
+            return true;
+        }
+        return false;
+    }
+
 }

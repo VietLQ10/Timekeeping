@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Embeddable
@@ -18,5 +19,5 @@ public class Employee_Timekeeper implements Serializable {
     @ManyToOne
     private Employee employee;
 
-    private Date timeCheck;
+    private LocalDate timeCheck;
 }

@@ -6,27 +6,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 
-//@Repository
-public interface TimekeeperRepository extends CrudRepository<Timekeeper, Employee_Timekeeper> {
-
-    // time check-in
-//    @Query("SELECT t.timekeeperId.timeCheck " +
-//            "FROM Timekeeper t " +
-//            "WHERE t.timekeeperId.employee.employeeId = ?1 AND t.timekeeperId.timeCheck = ?2" +
-//            "ORDER BY t.timekeeperId.timeCheck ASC")
-//    Date getTimeCheckIn(String employeeId, String date);
-
-    // time check-out
-
-    // get hours of work
-
-    // get hours of late
-
-//    List<Timekeeper> getTimekeepers (String employeeId, String date);
+@Repository
+public interface TimekeeperRepository extends CrudRepository<Timekeeper, Employee_Timekeeper>, TimekeeperRepositoryCustom {
+    // get time check-in
+//    @Query(value = "SELECT * FROM ", nativeQuery = true)
+//    LocalDate getTimeCheckOut(String employeeId, LocalDate date);
+    // get hours work
+    // get hours late
 
 
 }
