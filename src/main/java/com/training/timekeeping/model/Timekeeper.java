@@ -17,11 +17,5 @@ public class Timekeeper {
 
     @EmbeddedId
     private Employee_Timekeeper timekeeperId;
-
-    @Column(name = "check_in")
-    private boolean checkIn;
-
-    @Column(name = "check_out")
-    private boolean checkOut;
 }
 

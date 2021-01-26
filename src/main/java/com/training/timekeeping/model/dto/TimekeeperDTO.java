@@ -5,18 +5,36 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TimekeeperDTO {
 
     private String name;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
-    private boolean checkIn;
+    public TimekeeperDTO() {
+    }
 
-    private boolean checkOut;
+    public TimekeeperDTO(String name, LocalDateTime date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 
 }

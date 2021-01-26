@@ -2,6 +2,7 @@ package com.training.timekeeping.service;
 
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.model.Timekeeper;
+import com.training.timekeeping.model.dto.TimekeeperDTO;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -19,5 +20,5 @@ public interface TimekeeperService {
     // get hours work
     // get hours late
 
-    List<Timekeeper> getTimekeeper();
+    List<TimekeeperDTO> getTimekeepers();
 }

@@ -21,17 +21,9 @@ public class TimekeeperController {
     @Autowired
     private TimekeeperService service;
 
-    @GetMapping("/get-all-timekeeper")
+    @GetMapping("/get-all-timekeepers")
     public ResponseEntity<?> getAll() {
-        List<Timekeeper> timekeepers = service.getTimekeeper();
-        List<TimekeeperDTO> timekeeperDTOs = new ArrayList<>();
-        timekeepers.forEach(timekeeper -> {
-            timekeeperDTOs.add(new TimekeeperDTO(timekeeper.getTimekeeperId().getEmployee().getName(),
-                    timekeeper.getTimekeeperId().getTimeCheck(),
-                    timekeeper.isCheckIn(),
-                    timekeeper.isCheckOut()));
-        });
-
+        List<TimekeeperDTO> timekeepers = service.getTimekeepers();
         return ResponseEntity.ok(timekeepers);
     }
 }
