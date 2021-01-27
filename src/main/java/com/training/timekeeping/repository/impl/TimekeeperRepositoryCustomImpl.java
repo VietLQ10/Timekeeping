@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +28,11 @@ public class TimekeeperRepositoryCustomImpl implements TimekeeperRepositoryCusto
         List<Timekeeper> resultList = query1.getResultList();
         return resultList;
     }
+
+//    @Override
+//    public LocalTime getTimeCheckIn(String employeeId, LocalDateTime dateTime) {
+//        return null;
+//    }
 //
 //    @Autowired
 //    private EntityManager em;

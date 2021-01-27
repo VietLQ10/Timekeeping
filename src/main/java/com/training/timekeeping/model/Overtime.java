@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -25,12 +27,10 @@ public class Overtime {
     private Employee_Overtime id;
 
     @Column(name = "time_start", nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date timeStart;
+    private LocalTime timeStart;
 
     @Column(name = "time_end", nullable = false)
-    @Temporal(TemporalType.TIME)
-    private Date timeEnd;
+    private LocalTime timeEnd;
 
 //    @ManyToOne
 //    @MapsId("employeeId")

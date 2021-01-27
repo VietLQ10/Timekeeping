@@ -33,7 +33,7 @@ public class EmployeeController {
     * */
     @PostMapping("/add-employee")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
-        boolean isCreate = service.createUser(employee, jwtRequestFilter.getEmail());
+        boolean isCreate = service.createUser(jwtRequestFilter.getEmail(), employee);
         if (isCreate) {
             return ResponseEntity.ok(employee);
         }
@@ -96,7 +96,7 @@ public class EmployeeController {
     public ResponseEntity<?> deleteEmployees(@RequestParam(name = "key") String key,
                                              @RequestParam(name = "data") Object data) {
         List<Employee> employees = service.getEmployees(key, data);
-        boolean isDelete = service.deleteEmployees(employees, jwtRequestFilter.getEmail());
+        boolean isDelete = service.deleteEmployees(jwtRequestFilter.getEmail(), employees);
         if (isDelete) {
             return ResponseEntity.ok("Delete success!");
         }
@@ -108,7 +108,7 @@ public class EmployeeController {
     public ResponseEntity<?> deleteEmployee(@RequestParam(name = "key") String key,
                                             @RequestParam(name = "data") String data) {
         Employee employee = service.getEmployee(key, data);
-        boolean isDelete = service.deleteEmployee(employee, jwtRequestFilter.getEmail());
+        boolean isDelete = service.deleteEmployee(jwtRequestFilter.getEmail(), employee);
         if (isDelete) {
             return ResponseEntity.ok("Delete success!");
         }

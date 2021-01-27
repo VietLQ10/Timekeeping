@@ -1,6 +1,5 @@
 package com.training.timekeeping.model;
 
-import com.training.timekeeping.utils.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 @Entity
 @Table(name = "Employee")

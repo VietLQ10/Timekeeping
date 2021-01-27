@@ -53,13 +53,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // create user
     @Override
-    public boolean createUser(Employee employee, String email) {
+    public boolean createUser(String email, Employee employee) {
         if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
             employee.setPassword(bcryptEncoder.encode(employee.getPassword()));
             repository.save(employee);
             return true;
         }
-
         return false;
     }
 
@@ -129,40 +128,46 @@ public class EmployeeServiceImpl implements EmployeeService {
     // update employee:
     @Override
     public boolean updateEmployee(String email, Employee emp) {
-        /*
-        *  if email is admin:
-        * if email is user:
-        *   if emp.getEmail == email ?
-        * */
-
         Employee employee = getEmployee(Constant.EMPLOYEE_EMAIL, email);
-        String role = employee.getRole();
-
-        if (emp == null) {
-            return false;
-        }
-
-        if (getEmployee(Constant.EMPLOYEE_ID, emp.getEmployeeId()) == null){
-            return false;
-        }
-
-        if (Constant.ROLE_ADMIN.equalsIgnoreCase(role)) {
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(employee.getRole())) {
             emp.setPassword(bcryptEncoder.encode(emp.getPassword()));
             repository.save(emp);
             return true;
-
         } else {
-            if (! email.equalsIgnoreCase(emp.getEmail())) {
-                return false;
-            }
-
             employee.setPassword(bcryptEncoder.encode(emp.getPassword()));
             employee.setTimeStartWork(emp.getTimeStartWork());
             employee.setTimeEndWork(emp.getTimeEndWork());
             employee.setTimeBreak(emp.getTimeBreak());
-
             return true;
         }
+//        Employee employee = getEmployee(Constant.EMPLOYEE_EMAIL, email);
+//        String role = employee.getRole();
+//
+//        if (emp == null) {
+//            return false;
+//        }
+//
+//        if (getEmployee(Constant.EMPLOYEE_ID, emp.getEmployeeId()) == null){
+//            return false;
+//        }
+//
+//        if (Constant.ROLE_ADMIN.equalsIgnoreCase(role)) {
+//            emp.setPassword(bcryptEncoder.encode(emp.getPassword()));
+//            repository.save(emp);
+//            return true;
+//
+//        } else {
+//            if (! email.equalsIgnoreCase(emp.getEmail())) {
+//                return false;
+//            }
+//
+//            employee.setPassword(bcryptEncoder.encode(emp.getPassword()));
+//            employee.setTimeStartWork(emp.getTimeStartWork());
+//            employee.setTimeEndWork(emp.getTimeEndWork());
+//            employee.setTimeBreak(emp.getTimeBreak());
+//
+//            return true;
+//        }
     }
 
 
@@ -172,8 +177,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     * */
     // delete list employees
     @Override
-    public boolean deleteEmployees(Iterable<Employee> employees, String email) {
-        if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
+    public boolean deleteEmployees(String email, Iterable<Employee> employees) {
+        Employee employee = getEmployee(Constant.EMPLOYEE_EMAIL, email);
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(employee.getRole())) {
             repository.deleteAll(employees);
             return true;
         }
@@ -182,9 +188,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // delete a employee
     @Override
-    public boolean deleteEmployee(Employee employee, String email) {
-        if (Constant.ROLE_ADMIN.equalsIgnoreCase(getEmployee(Constant.EMPLOYEE_EMAIL, email).getRole())) {
-            repository.delete(employee);
+    public boolean deleteEmployee(String email, Employee emp) {
+        Employee employee = getEmployee(Constant.EMPLOYEE_EMAIL, email);
+        if (Constant.ROLE_ADMIN.equalsIgnoreCase(employee.getRole())) {
+            repository.delete(emp);
             return true;
         }
         return false;

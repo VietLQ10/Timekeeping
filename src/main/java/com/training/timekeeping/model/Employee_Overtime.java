@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,9 +17,8 @@ import java.util.Objects;
 public class Employee_Overtime implements Serializable {
 
     @ManyToOne
-//    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    private Date dateOT;
+    private LocalDate dateOT;
 
 }

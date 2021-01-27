@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,18 +18,17 @@ public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "request_id")
-    private int requestId;
+    private Integer requestId;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
     @Column(name = "start_request", columnDefinition = "DATETIME", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date startRequest;
+    private LocalDateTime timeStart;
 
     @Column(name = "end_request", columnDefinition = "DATETIME", nullable = false)
-    private Date endRequest;
+    private LocalDateTime timeEnd;
 
     @Column(name = "content", columnDefinition = "VARCHAR(1000)", nullable = false)
     private String content;

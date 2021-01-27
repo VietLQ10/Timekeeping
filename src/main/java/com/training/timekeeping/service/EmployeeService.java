@@ -17,7 +17,7 @@ public interface EmployeeService extends UserDetailsService {
     void createAdmin();
 
     // create user
-    boolean createUser(Employee employee, String email);
+    boolean createUser(String email, Employee employee);
 
 
     /**
@@ -45,8 +45,8 @@ public interface EmployeeService extends UserDetailsService {
     *
     *  */
     // delete list employees
-    boolean deleteEmployees(Iterable<Employee> employees, String email);
+    boolean deleteEmployees(String email, Iterable<Employee> employees);
 
     // delete a employee
-    boolean deleteEmployee(Employee employee, String email);
+    boolean deleteEmployee(String email, Employee employee);
 }
