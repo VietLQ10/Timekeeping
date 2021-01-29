@@ -25,4 +25,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     @ToString.Exclude private Set<Employee> employee;
 
+    public Department(String departmentId) {
+        this.departmentId = departmentId;
+    }
 }

@@ -1,5 +1,8 @@
 package com.training.timekeeping.service.impl;
 
+import com.training.timekeeping.model.Department;
+import com.training.timekeeping.model.Gender;
+import com.training.timekeeping.model.Position;
 import com.training.timekeeping.model.dto.Account;
 import com.training.timekeeping.utils.Constant;
 import com.training.timekeeping.model.Employee;
@@ -36,17 +39,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void createAdmin() {
         Employee emp = new Employee();
         emp.setEmployeeId("1");
-        emp.setDepartment(null);
-        emp.setPosition(null);
-        emp.setGender(null);
+        emp.setDepartment(new Department("BU2"));
+        emp.setPosition(new Position("DEV"));
+        emp.setGender(new Gender(1));
         emp.setName("La Quoc Viet");
         emp.setEmail("vietlq@ominext.com");
         emp.setPassword(bcryptEncoder.encode("vietlq@ominext.com"));
         emp.setNumDayoff(3);
         emp.setNumRemaining(2);
-        emp.setTimeStartWork(LocalTime.MAX);
-        emp.setTimeBreak(LocalTime.MAX);
-        emp.setTimeEndWork(LocalTime.MAX);
+        emp.setTimeStartWork(LocalTime.of(8,30));
+        emp.setTimeBreak(LocalTime.of(01,00));
+        emp.setTimeEndWork(LocalTime.of(17, 45, 00));
         emp.setRole(Constant.ROLE_ADMIN);
         repository.save(emp);
     }

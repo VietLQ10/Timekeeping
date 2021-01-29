@@ -47,7 +47,6 @@ public class EmployeeController {
     // get all employees
     @GetMapping("/get-all-employees")
     public ResponseEntity<?> findAllEmployee() {
-        String email = jwtRequestFilter.getEmail();
 
         List<Employee> employees = new ArrayList<>();
         service.getAllEmployee().forEach(employee -> {
