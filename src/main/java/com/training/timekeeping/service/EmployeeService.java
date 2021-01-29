@@ -2,6 +2,7 @@ package com.training.timekeeping.service;
 
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.model.dto.Account;
+import com.training.timekeeping.model.dto.EmployeeDTO;
 import com.training.timekeeping.utils.Role;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -25,12 +26,16 @@ public interface EmployeeService extends UserDetailsService {
     *
     * */
     // get all employees
-    List<Employee> getAllEmployee();
+    List<EmployeeDTO> getAllEmployee();
 
     // get list employees
+    List<EmployeeDTO> getEmployeesDTO(String type, Object data);
+
     List<Employee> getEmployees(String type, Object data);
 
     // get a employee
+    EmployeeDTO getEmployeeDTO(String type, Object data);
+
     Employee getEmployee(String type, Object data);
 
     /**

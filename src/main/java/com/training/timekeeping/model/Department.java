@@ -1,9 +1,6 @@
 package com.training.timekeeping.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,4 +22,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     @ToString.Exclude private Set<Employee> employee;
 
+    public Department(String departmentId) {
+        this.departmentId = departmentId;
+    }
 }

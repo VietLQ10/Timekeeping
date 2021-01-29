@@ -2,6 +2,7 @@ package com.training.timekeeping.controller;
 
 import com.training.timekeeping.config.JwtRequestFilter;
 import com.training.timekeeping.model.Employee;
+import com.training.timekeeping.model.dto.EmployeeDTO;
 import com.training.timekeeping.service.EmployeeService;
 import com.training.timekeeping.utils.Constant;
 import com.training.timekeeping.utils.Role;
@@ -47,29 +48,24 @@ public class EmployeeController {
     // get all employees
     @GetMapping("/get-all-employees")
     public ResponseEntity<?> findAllEmployee() {
-        String email = jwtRequestFilter.getEmail();
-
-        List<Employee> employees = new ArrayList<>();
-        service.getAllEmployee().forEach(employee -> {
-            employees.add(employee);
-        });
-        return ResponseEntity.ok(employees);
+        List<EmployeeDTO> employeeDTOS = service.getAllEmployee();
+        return ResponseEntity.ok(employeeDTOS);
     }
 
     // get list employees
     @GetMapping("get-employees")
     public ResponseEntity<?> findEmployees(@RequestParam(name = "key") String key,
                                            @RequestParam(name = "data") Object data) {
-        List<Employee> employees = service.getEmployees(key, data);
-        return ResponseEntity.ok(employees);
+        List<EmployeeDTO> employeeDTOS = service.getEmployeesDTO(key, data);
+        return ResponseEntity.ok(employeeDTOS);
     }
 
     // get a employee
     @GetMapping("get-employee")
     public ResponseEntity<?> findEmployee(@RequestParam(name = "key") String key,
                                           @RequestParam(name = "data") Object data) {
-        Employee employee = service.getEmployee(key, data);
-        return ResponseEntity.ok(employee);
+        EmployeeDTO employeeDTO = service.getEmployeeDTO(key, data);
+        return ResponseEntity.ok(employeeDTO);
     }
 
     /**
