@@ -32,8 +32,4 @@ public class Overtime {
     @Column(name = "time_end", nullable = false)
     private LocalTime timeEnd;
 
-//    @ManyToOne
-//    @MapsId("employeeId")
-//    private Employee employee;
-
 }

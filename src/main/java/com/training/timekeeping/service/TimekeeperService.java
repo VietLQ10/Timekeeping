@@ -16,16 +16,23 @@ public interface TimekeeperService {
     //void save (Timekeeper timekeeper);
 
     // get time check-in
-    LocalTime getTimeCheckIn(String employeeId, LocalDate date);
+    LocalTime getTimeCheckIn(String email, LocalDate date);
 
     // get time check-out
-    LocalTime getTimeCheckOut(String employeeId, LocalDate date);
+    LocalTime getTimeCheckOut(String email, LocalDate date);
 
     // get hours work
     long getHoursOfWork(String employeeId, Object obj);
 
+    long getHoursOfWorkByMonth(String employeeId,  String date);
+
     // get hours late
     long getHoursLate(String employeeId, Object obj);
 
-    List<TimekeeperDTO> getTimekeepers();
+    // get hours late month
+    long getHoursOfLateByMonth(String employeeId,  String date);
+
+    List<TimekeeperDTO> getAllTimekeepers();
+
+    List<TimekeeperDTO> getTimekeepersByEmployee(String email);
 }

@@ -21,4 +21,7 @@ public class Employee_Overtime implements Serializable {
 
     private LocalDate dateOT;
 
+    public Employee_Overtime(Employee employee) {
+        this.employee = employee;
+    }
 }

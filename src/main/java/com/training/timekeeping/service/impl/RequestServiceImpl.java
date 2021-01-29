@@ -23,7 +23,9 @@ public class RequestServiceImpl implements RequestService {
     private EmployeeService service;
 
     @Override
-    public boolean createRequest(Request request) {
+    public boolean createRequest(String employeeEmail, Request request) {
+        Employee employee = service.getEmployee(Constant.EMPLOYEE_EMAIL, employeeEmail);
+        request.setEmployee(employee);
         repository.save(request);
         return true;
     }
@@ -59,17 +61,6 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestDTO viewRequest(String employeeEmail, int requestId) {
-//        Employee employee = service.getEmployee(Constant.EMPLOYEE_EMAIL, employeeEmail);
-//        if (Constant.ROLE_ADMIN.equalsIgnoreCase(employee.getRole())) {
-//
-//        } else {
-//            List<Request> result = repository.findByEmployeeId(employeeEmail);
-//            for (Request request : result) {
-//                if (requestId == request.getRequestId()) {
-//                    return request;
-//                }
-//            }
-//        }
         List<RequestDTO> requests = findAll(employeeEmail);
         for (RequestDTO request : requests) {
             if (requestId == request.getRequestId()) {

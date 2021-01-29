@@ -29,7 +29,7 @@ public class RequestController {
 
     @PostMapping("/create-request")
     public ResponseEntity<?> createRequest(@RequestBody Request request){
-        boolean isCreate = service.createRequest(request);
+        boolean isCreate = service.createRequest(jwtRequestFilter.getEmail() ,request);
         if (isCreate) {
             return ResponseEntity.ok(request);
         } else {

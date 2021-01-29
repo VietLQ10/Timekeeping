@@ -5,11 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Util {
-    public static LocalDate convertStringToDate(String string) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate dateTime = LocalDateTime.parse(string, formatter);
-        return LocalDate.parse(string);
-    }
+//    public static String convertLocalDateTimeToString(LocalDateTime) {
+//
+//    }
 
     public static String convertTime(long seconds) {
         String hourStr;

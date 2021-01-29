@@ -44,7 +44,7 @@ public class Employee implements Serializable {
     private String password;
 
     @Column(name = "num_dayoff", columnDefinition = "INT DEFAULT 1", nullable = false)
-    private int numDayoff;
+    private int numhoursoff;
 
     @Column(name = "num_remaining", columnDefinition = "INT DEFAULT 1", nullable = false)
     private int numRemaining;

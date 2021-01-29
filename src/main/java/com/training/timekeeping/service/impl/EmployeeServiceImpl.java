@@ -4,6 +4,7 @@ import com.training.timekeeping.model.Department;
 import com.training.timekeeping.model.Gender;
 import com.training.timekeeping.model.Position;
 import com.training.timekeeping.model.dto.Account;
+import com.training.timekeeping.model.dto.EmployeeDTO;
 import com.training.timekeeping.utils.Constant;
 import com.training.timekeeping.model.Employee;
 import com.training.timekeeping.repository.EmployeeRepository;
@@ -45,11 +46,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         emp.setName("La Quoc Viet");
         emp.setEmail("vietlq@ominext.com");
         emp.setPassword(bcryptEncoder.encode("vietlq@ominext.com"));
-        emp.setNumDayoff(3);
-        emp.setNumRemaining(2);
-        emp.setTimeStartWork(LocalTime.of(8,30));
-        emp.setTimeBreak(LocalTime.of(01,00));
-        emp.setTimeEndWork(LocalTime.of(17, 45, 00));
+        emp.setNumhoursoff(30);
+        emp.setNumRemaining(30);
+        emp.setTimeStartWork(LocalTime.of(8, 15));
+        emp.setTimeBreak(LocalTime.of(1, 0));
+        emp.setTimeEndWork(LocalTime.of(17, 30));
         emp.setRole(Constant.ROLE_ADMIN);
         repository.save(emp);
     }
@@ -72,29 +73,60 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // get all employees
     @Override
-    public List<Employee> getAllEmployee() {
-        List<Employee> employees = new ArrayList<>();
+    public List<EmployeeDTO> getAllEmployee() {
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
         repository.findAll().forEach(employee -> {
-            employees.add(employee);
+            employeeDTOS.add(new EmployeeDTO(
+                    employee.getEmployeeId(),
+                    employee.getName(),
+                    employee.getEmail(),
+                    employee.getDepartment().getDepartmentName(),
+                    employee.getPosition().getPositionName(),
+                    employee.getGender().getGender(),
+                    employee.getNumhoursoff(),
+                    employee.getNumRemaining()
+            ));
         });
-        return employees;
+        return employeeDTOS;
     }
 
     // get list employees
+    @Override
+    public List<EmployeeDTO> getEmployeesDTO(String type, Object data) {
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+        switch (type.toUpperCase()) {
+            case Constant.EMPLOYEE_NAME:
+                repository.findByName((String) data).forEach(employee -> {
+                    employeeDTOS.add(new EmployeeDTO(
+                            employee.getEmployeeId(),
+                            employee.getName(),
+                            employee.getEmail(),
+                            employee.getDepartment().getDepartmentName(),
+                            employee.getPosition().getPositionName(),
+                            employee.getGender().getGender(),
+                            employee.getNumhoursoff(),
+                            employee.getNumRemaining()
+                    ));
+                });
+                break;
+
+        }
+        return employeeDTOS;
+    }
+
     @Override
     public List<Employee> getEmployees(String type, Object data) {
         List<Employee> employees = new ArrayList<>();
         switch (type.toUpperCase()) {
             case Constant.EMPLOYEE_NAME:
-                employees = repository.findByName((String) data);
+                repository.findByName((String) data).forEach(employee -> {
+                    employees.add(employee);
+                });
                 break;
-
         }
         return employees;
     }
 
-    // get a employee
-    @Override
     public Employee getEmployee(String type, Object data) {
         Optional<Employee> optional = null;
         switch (type.toUpperCase()) {
@@ -109,6 +141,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (optional.isPresent()) {
             return optional.get();
+        }
+        return null;
+    }
+
+    // get a employee
+    @Override
+    public EmployeeDTO getEmployeeDTO(String type, Object data) {
+        Optional<Employee> optional = null;
+        switch (type.toUpperCase()) {
+            case Constant.EMPLOYEE_ID:
+                optional = repository.findById((String) data);
+                break;
+
+            case Constant.EMPLOYEE_EMAIL:
+                optional = repository.findByEmail((String) data);
+                break;
+        }
+
+        if (optional.isPresent()) {
+            Employee employee = optional.get();
+            EmployeeDTO employeeDTO = new EmployeeDTO(
+                    employee.getEmployeeId(),
+                    employee.getName(),
+                    employee.getEmail(),
+                    employee.getDepartment().getDepartmentName(),
+                    employee.getPosition().getPositionName(),
+                    employee.getGender().getGender(),
+                    employee.getNumhoursoff(),
+                    employee.getNumRemaining()
+            );
+            return employeeDTO;
         }
         return null;
     }

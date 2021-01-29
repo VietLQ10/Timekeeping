@@ -8,7 +8,7 @@ import java.util.List;
 public interface RequestService {
 
     // create request
-    boolean createRequest(Request request);
+    boolean createRequest(String employeeEmial, Request request);
 
     // get all requests
     List<RequestDTO> findAll(String employeeEmail);

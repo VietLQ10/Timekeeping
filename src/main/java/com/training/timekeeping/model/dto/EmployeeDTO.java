@@ -13,39 +13,135 @@ public class EmployeeDTO {
 
     private String email;
 
-    private String password;
+    private String department;
 
-    private Department department;
+    private String position;
 
-    private Position position;
+    private String gender;
 
-    private Gender gender;
-
-    private int numDayoff;
+    private int numHoursOff;
 
     private int numRemaining;
 
-    private LocalTime timeStartWork;
+    private long overtime;
 
-    private LocalTime timeEndWork;
+    private long hoursLate;
 
-    private LocalTime timeBreak;
+    private long hoursWork;
 
-    private String role;
+    public EmployeeDTO() {
+    }
 
-    public EmployeeDTO(String id, String email, Department department, Position position, Gender gender, int numDayoff,
-                       LocalTime timeStartWork, LocalTime timeEndWork, LocalTime timeBreak, String role) {
+    public EmployeeDTO(String id, String name, String email, String department, String position, String gender, int numHoursOff, int numRemaining) {
         this.id = id;
+        this.name = name;
         this.email = email;
         this.department = department;
         this.position = position;
         this.gender = gender;
-        this.numDayoff = numDayoff;
-        this.timeStartWork = timeStartWork;
-        this.timeEndWork = timeEndWork;
-        this.timeBreak = timeBreak;
-        this.role = role;
+        this.numHoursOff = numHoursOff;
+        this.numRemaining = numRemaining;
     }
 
-    
+    public EmployeeDTO(String id, String name, String email, String department, String position, String gender, int numHoursOff, int numRemaining, long overtime, long hoursLate, long hoursWork) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.department = department;
+        this.position = position;
+        this.gender = gender;
+        this.numHoursOff = numHoursOff;
+        this.numRemaining = numRemaining;
+        this.overtime = overtime;
+        this.hoursLate = hoursLate;
+        this.hoursWork = hoursWork;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getNumHoursOff() {
+        return numHoursOff;
+    }
+
+    public void setNumHoursOff(int numHoursOff) {
+        this.numHoursOff = numHoursOff;
+    }
+
+    public int getNumRemaining() {
+        return numRemaining;
+    }
+
+    public void setNumRemaining(int numRemaining) {
+        this.numRemaining = numRemaining;
+    }
+
+    public long getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(long overtime) {
+        this.overtime = overtime;
+    }
+
+    public long getHoursLate() {
+        return hoursLate;
+    }
+
+    public void setHoursLate(long hoursLate) {
+        this.hoursLate = hoursLate;
+    }
+
+    public long getHoursWork() {
+        return hoursWork;
+    }
+
+    public void setHoursWork(long hoursWork) {
+        this.hoursWork = hoursWork;
+    }
 }
